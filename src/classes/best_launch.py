@@ -88,7 +88,7 @@ class BestLaunch:
         delta = self.next_uptade - datetime.datetime.now()
         time_to_sleep = delta.seconds
         print("Time to sleep until next update: " + str(time_to_sleep) + " seconds.")
-        #time.sleep(time_to_sleep)
+        time.sleep(time_to_sleep)
         self._parse_best_launch()
         self._get_recent_publications()
         self._set_next_update()
