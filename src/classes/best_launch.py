@@ -11,6 +11,10 @@ class BestLaunch:
 
 
     def __init__(self):
+        try:
+            os.makedirs(VOLUME_PATH)
+        except FileExistsError:
+            pass
         if not self._data_exist():
             print("Not data found, requesting publications and setting up next update...")
             self._get_recent_publications()
