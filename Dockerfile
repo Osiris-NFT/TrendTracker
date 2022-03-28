@@ -15,7 +15,7 @@ COPY run.sh /home/trend-tracker/
 
 RUN chown -R runner:runner /home/trend-tracker/
 
-EXPOSE 8000
+EXPOSE 8080
 
 USER runner
 
