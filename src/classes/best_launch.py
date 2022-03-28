@@ -23,24 +23,27 @@ class BestLaunch:
         self._set_next_update()
         print("BestLauch init done.")
 
+
     def _data_exist(self) -> bool:
         if os.path.exists(os.path.join(VOLUME_PATH, "best_launch_old.json")):
             return True
         else:
             return False
     
+    
     def _set_next_update(self):
         now = datetime.datetime.now()
-        self.next_uptade = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + datetime.timedelta(hours=BL_OCCURENCE)
+        self.next_uptade = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + datetime.timedelta(hours=BL_UPDATE_OCCURENCE)
         print("Next update set for:" + str(self.next_uptade))
 
     def _get_recent_publications(self):
-        result = requests.get(PUBLICATION_SVC_URL + PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_OCCURENCE+5})
+        result = requests.get(PUBLICATION_SVC_URL + PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
         file = json.loads(result.text)
         print("Init data for next update, number of publications: " +str(len(file)))
         with open(os.path.join(VOLUME_PATH, "best_launch_old.json"), 'w') as f:
             f.write(json.dumps(file))
             f.close()
+    
     
     def _get_many_publications(self, old_json: dict):
         param: str = ""
@@ -60,6 +63,7 @@ class BestLaunch:
             json_file = json.load(f)
         return json_file
 
+
     def _parse_best_launch(self):
         old_json = self._load_recent_publications()
         new_json = self._get_many_publications(old_json)
@@ -78,6 +82,7 @@ class BestLaunch:
         with open(os.path.join(VOLUME_PATH, "best_launch_result.json"), 'w') as f:
             f.write(json.dumps({"best_launch": data_to_store}))
         print("Data parsed and list of best launched publications stored.")
+
 
     def run(self):
         delta = self.next_uptade - datetime.datetime.now()
