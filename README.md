@@ -1,1 +1,2 @@
-# Osiris-NFT_TrendTracker
+# Osiris-NFT TrendTracker
+Track every activities and likes of publication to generate multiple lists of popular publications sorted by categories/dates/subjects...
