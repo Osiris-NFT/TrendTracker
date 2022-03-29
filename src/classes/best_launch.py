@@ -80,7 +80,7 @@ class BestLaunch:
         data_to_store.reverse()
     
         with open(os.path.join(VOLUME_PATH, "best_launch_result.json"), 'w') as f:
-            f.write(json.dumps({"best_launch": data_to_store}))
+            f.write(json.dumps({"new_best_ids": data_to_store}))
         print("Data parsed and list of best launched publications stored.")
 
 

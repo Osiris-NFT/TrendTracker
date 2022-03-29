@@ -11,7 +11,7 @@ app = FastAPI()
 async def get_best_lunched_publications_list(response: Response): # TODO TEST
     if os.path.exists(os.path.join(VOLUME_PATH, "best_launch_result.json")):
         with open(os.path.join(VOLUME_PATH, "best_launch_result.json"), 'r') as f:
-            result = json.loads(f)
+            result = json.load(f)
         response.status_code = status.HTTP_200_OK
         return result
     else:
