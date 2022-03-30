@@ -5,4 +5,4 @@ Track every activities and likes of publications to generate multiple lists of p
 -   Publications: https://github.com/Yoann-Renard/Osiris-NFT_publications-service
 -   DataBase: https://github.com/Yoann-Renard/Osiris-NFT_MongoDB
 -   TrendTracker: https://github.com/Yoann-Renard/Osiris-NFT_TrendTracker
--   API Gateway: 
+-   API Gateway: https://github.com/Yoann-Renard/Osiris-NFT_KrakenD
