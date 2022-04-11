@@ -2,7 +2,7 @@ from fastapi import FastAPI, Response, status
 import os
 import json
 
-from src.classes.settings import *
+from classes.settings import *
 
 
 app = FastAPI()
