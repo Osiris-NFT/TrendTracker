@@ -8,7 +8,7 @@ from .settings import *
 
 class BestLaunch:
     last_update: datetime
-    next_uptade: datetime
+    next_update: datetime
 
     def __init__(self):
         try:
@@ -31,9 +31,9 @@ class BestLaunch:
 
     def _set_next_update(self):
         now = datetime.datetime.now()
-        self.next_uptade = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + datetime.timedelta(
-            hours=BL_UPDATE_OCCURENCE)
-        print("Next update set for:" + str(self.next_uptade))
+        self.next_update = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + datetime.timedelta(
+            hours=BL_UPDATE_OCCURRENCE)
+        print("Next update set for:" + str(self.next_update))
 
     def _get_recent_publications(self):
         result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
@@ -82,7 +82,7 @@ class BestLaunch:
         print("Data parsed and list of best launched publications stored.")
 
     def run(self):
-        delta = self.next_uptade - datetime.datetime.now()
+        delta = self.next_update - datetime.datetime.now()
         time_to_sleep = delta.seconds
         print("Time to sleep until next update: " + str(time_to_sleep) + " seconds.")
         time.sleep(time_to_sleep)
