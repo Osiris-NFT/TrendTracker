@@ -6,6 +6,7 @@ on:
     - src/**
     - main.py
     - Dockerfile
+    - run.sh
 
 #env:
 #  TAG: $(date +%s)
