@@ -1,10 +1,5 @@
 import os
 #### GENERAL ####
-"""
-# DEBUG
-VOLUME_PATH = "data"
-PUBLICATION_SVC_URL = "http://0.0.0.0:8000/"
-"""
 VOLUME_PATH = os.environ["VOLUME_PATH"]
 PUBLICATION_SVC_URL = "http://" + os.environ["PUBLICATION_SVC_URL"]
 PUBLICATION_SVC_PORT = os.environ["PUBLICATION_SVC_PORT"]
