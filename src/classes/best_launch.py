@@ -37,7 +37,8 @@ class BestLaunch:
         print("Next update set for:" + str(self.next_uptade))
 
     def _get_recent_publications(self):
-        result = requests.get("http://" + PUBLICATION_SVC_URL + ":8000" + PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
+        result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
+                              PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
         file = json.loads(result.text)
         print("Init data for next update, number of publications: " +str(len(file)))
         with open(os.path.join(VOLUME_PATH, "best_launch_old.json"), 'w') as f:
@@ -54,7 +55,8 @@ class BestLaunch:
             else:
                 param += key
             i+=1
-        result = requests.get(PUBLICATION_SVC_URL + PUBLICATION_SVC_GET_MANY_ENDPOINT, {'id_list_str': param})
+        result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
+                              PUBLICATION_SVC_GET_MANY_ENDPOINT, {'id_list_str': param})
         return json.loads(result.text)
 
 
