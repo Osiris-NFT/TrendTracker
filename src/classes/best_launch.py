@@ -16,12 +16,12 @@ class BestLaunch:
         except FileExistsError:
             pass
         if not self._data_exist():
-            print("Not data found, requesting publications and setting up next update...")
+            print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Not data found, requesting publications and setting up next update...")
             self._get_recent_publications()
         else:
-            print("Data found, setting up next update...")
+            print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Data found, setting up next update...")
         self._set_next_update()
-        print("BestLaunch init done.")
+        print(f"BEST NEW TRACKER ({datetime.datetime.now()}): BestLaunch init done.")
 
     def _data_exist(self) -> bool:
         if os.path.exists(os.path.join(VOLUME_PATH, "best_launch_old.json")):
@@ -33,13 +33,13 @@ class BestLaunch:
         now = datetime.datetime.now()
         self.next_update = datetime.datetime(now.year, now.month, now.day, now.hour, 0, 0, 0) + datetime.timedelta(
             hours=BL_UPDATE_OCCURRENCE)
-        print("Next update set for:" + str(self.next_update))
+        print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Next update set for:" + str(self.next_update))
 
     def _get_recent_publications(self):
         result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
                               PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
         file = json.loads(result.text)
-        print("Init data for next update, number of publications: " + str(len(file)))
+        print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Init data for next update, number of publications: " + str(len(file)))
         with open(os.path.join(VOLUME_PATH, "best_launch_old.json"), 'w') as f:
             f.write(json.dumps(file))
             f.close()
@@ -79,12 +79,12 @@ class BestLaunch:
 
         with open(os.path.join(VOLUME_PATH, "best_launch_result.json"), 'w') as f:
             f.write(json.dumps({"new_best_ids": data_to_store}))
-        print("Data parsed and list of best launched publications stored.")
+        print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Data parsed and list of best launched publications stored.")
 
     def run(self):
         delta = self.next_update - datetime.datetime.now()
-        time_to_sleep = delta.seconds
-        print("Time to sleep until next update: " + str(time_to_sleep) + " seconds.")
+        time_to_sleep = delta.seconds + SECONDS_TO_SLEEP_OFFSET
+        print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Time to sleep until next update: " + str(time_to_sleep) + " seconds.")
         time.sleep(time_to_sleep)
         self._parse_best_launch()
         self._get_recent_publications()
