@@ -38,6 +38,12 @@ class BestLaunch:
     def _get_recent_publications(self):
         result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
                               PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
+        while result.status_code != 200:
+            print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Publications service is not responding.\n"
+                  f"Next attempt in {BACKOFF_DELAY} seconds.")
+            time.sleep(BACKOFF_DELAY)
+            result = requests.get(PUBLICATION_SVC_URL + ":" + PUBLICATION_SVC_PORT +
+                                  PUBLICATION_SVC_GET_RECENT_ENDPOINT, {'hours_time_delta': BL_PUB_TIME})
         file = json.loads(result.text)
         print(f"BEST NEW TRACKER ({datetime.datetime.now()}): Init data for next update, number of publications: " + str(len(file)))
         with open(os.path.join(VOLUME_PATH, "best_launch_old.json"), 'w') as f:
