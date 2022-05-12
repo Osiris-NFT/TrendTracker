@@ -67,7 +67,7 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl delete -f https://github.com/Yoann-Renard/Osiris-NFT_Deployment/blob/main/KrankenD/deployment.yaml
-        kubectl apply -f https://github.com/Yoann-Renard/Osiris-NFT_Deployment/blob/main/KrankenD/deployment.yaml
+        kubectl delete -f https://raw.githubusercontent.com/Yoann-Renard/Osiris-NFT_Deployment/main/KrankenD/deployment.yaml
+        kubectl apply -f https://raw.githubusercontent.com/Yoann-Renard/Osiris-NFT_Deployment/main/KrankenD/deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
