@@ -37,3 +37,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Push the Docker image
       run: docker push mightyfoxx/osiris_trend-tracker:latest
+    
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: Yoann-Renard/Osiris-NFT_TrendTracker
+        event-type: trigger-deployment
